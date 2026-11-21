@@ -1,0 +1,4 @@
+# 施工筆記與計畫檔進版控，跟著 repo 走。
+# 例外：adopt 的備份與 .gitignore 自身的備份都是一次性產物，不進版控。
+backup-*/
+.gitignore.bak-*

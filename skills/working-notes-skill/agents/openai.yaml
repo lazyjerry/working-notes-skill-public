@@ -1,0 +1,6 @@
+interface:
+  display_name: "施工筆記"
+  short_description: "任務收尾寫施工筆記並重建索引；也可留存計畫檔、標記過時、切換版控"
+  default_prompt: "使用 $working-notes-skill 為這次任務寫一份施工筆記。"
+policy:
+  allow_implicit_invocation: true
