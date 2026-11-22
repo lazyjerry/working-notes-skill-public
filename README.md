@@ -8,7 +8,45 @@ GitHub：<https://github.com/lazyjerry/working-notes-skill-public>
 
 ## 安裝
 
-兩條路擇一：**用 ai-global 安裝**（一個指令，自動同步到所有 AI 工具），或**手動安裝**（clone、複製、注入規則段）。
+兩條路擇一：**用 ai-global 安裝**（一個指令，自動同步到所有 AI 工具），或**手動安裝**（clone、複製、注入規則段）。要交給 AI 代理代勞，直接用下面的〈用 AI 安裝〉。
+
+### 用 AI 安裝
+
+不想自己逐步操作，可以把下面這段貼給 Claude Code、Codex 這類能執行指令的 AI 代理。它會照這份文件檢查需求、問清楚選項，再呼叫後面幾節寫的指令與腳本；安裝動作仍只有那些指令與腳本一份。
+
+```text
+請幫我安裝 working-notes-skill（https://github.com/lazyjerry/working-notes-skill-public）。
+
+1. 取得來源：把 repo clone 到 ~/working-notes-skill；已經存在就在裡面 git pull。
+
+2. 讀文件、檢查需求：讀 repo 的 README.md「安裝」整章，一切以它為準，不要憑印象安裝。
+   逐項檢查「需求」：git、bash 3.2 以上、作業系統。
+   缺任何一項就停下來，告訴我缺什麼、怎麼補，不要自行安裝或略過。
+
+3. 先問我這幾件事，問完再動手：
+   - 安裝方式：`command -v ai-global` 有結果就預設「用 ai-global 安裝」，沒有就走「手動安裝」；
+     用哪一種先跟我確認。
+   - 走手動安裝時，skill 本體要就地使用（A）還是複製到 AI 工具的 skills 目錄（B）；
+     選 B 再問是哪個工具的目錄。
+   - 要不要注入規則段；要的話注入哪一份指令檔。
+     不帶參數執行 `sh scripts/wn-install.sh` 會列出偵測到的候選後結束（結束碼非 0 是正常的），
+     把清單給我挑，不要替我選。
+
+4. 只用 README 寫的指令與 repo 內的腳本安裝：
+   `ai-global add-skill`、`cp -R`、`scripts/wn-install.sh` 與它的 `--skill-dir`／`--after` 參數。
+   已經裝過就改照 README 的「更新」段落做。
+   不要修改 repo 內的任何檔案，不要手動編輯我的指令檔；目標指令檔不存在時不要替我建立。
+
+5. 驗證並回報，只用唯讀指令：
+   - skill 本體：`ls <skill 目錄>/SKILL.md`；
+     用 ai-global 安裝時另加 `ai-global list-skills | grep working-notes-skill`。
+   - 規則段（有注入才查）：`grep -n 'working-notes-skill:notes' <指令檔>`。
+   回報：用了哪種安裝方式、skill 目錄的位置、規則段注入到哪一份檔案與裡面寫的腳本路徑、
+   備份檔（.bak-<時間戳>）的位置。
+   README「驗證」的冒煙測試會在專案裡建檔，不要自己跑，把指令告訴我就好。
+```
+
+更新時同一段提示詞再貼一次：來源已存在會改成 `git pull`，已經裝過會改走「更新」段落。
 
 ### 需求
 
